@@ -1,204 +1,311 @@
-# Personal Website
+# Saad Raza - Personal Profile Website
 
-A modern, responsive personal website built with HTML, CSS, and JavaScript. Features a clean design with smooth animations, mobile-first approach, and professional sections for showcasing your skills and projects.
+A modern, responsive personal portfolio website with a comprehensive backend API for content management.
 
-## 🚀 Features
+## 🌟 Features
 
-- **Responsive Design**: Works perfectly on all devices
-- **Modern UI/UX**: Clean, professional design with smooth animations
-- **Mobile Navigation**: Hamburger menu for mobile devices
-- **Smooth Scrolling**: Seamless navigation between sections
-- **Interactive Elements**: Hover effects and animations
-- **Contact Form**: Functional contact form with validation
-- **SEO Optimized**: Semantic HTML structure
-- **Accessibility**: Keyboard navigation and screen reader support
+### Frontend
+- **Responsive Design**: Mobile-first approach with modern UI/UX
+- **Interactive Elements**: Smooth animations, hover effects, and transitions
+- **Portfolio Showcase**: Dynamic project display with filtering and search
+- **Skills Visualization**: Interactive skills section with proficiency indicators
+- **Contact Form**: Professional contact form with validation
+- **SEO Optimized**: Meta tags, semantic HTML, and performance optimized
 
-## 📁 File Structure
+### Backend API
+- **Node.js/Express**: Fast, scalable server framework
+- **MongoDB**: NoSQL database with Mongoose ODM
+- **JWT Authentication**: Secure user authentication and authorization
+- **File Uploads**: Image upload system with organized storage
+- **Email Notifications**: Automated email system for contact form submissions
+- **Rate Limiting**: Protection against spam and abuse
+- **Input Validation**: Comprehensive data validation and sanitization
+- **Admin Panel**: Content management system for portfolio updates
+
+## 🚀 Quick Start
+
+### Prerequisites
+- Node.js (v16 or higher)
+- MongoDB (local or cloud)
+- npm or yarn
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd personal-profile
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Environment Configuration**
+   ```bash
+   cp env.example .env
+   ```
+   
+   Update `.env` with your configuration:
+   ```env
+   NODE_ENV=development
+   PORT=5000
+   FRONTEND_URL=http://localhost:3000
+   MONGODB_URI=mongodb://localhost:27017/personal-profile
+   JWT_SECRET=your-super-secret-jwt-key-here
+   EMAIL_HOST=smtp.gmail.com
+   EMAIL_USER=your-email@gmail.com
+   EMAIL_PASS=your-app-password
+   ```
+
+4. **Start the backend server**
+   ```bash
+   # Development mode
+   npm run dev
+   
+   # Production mode
+   npm start
+   ```
+
+5. **Open your browser**
+   - Frontend: `http://localhost:3000`
+   - Backend API: `http://localhost:5000`
+   - Health Check: `http://localhost:5000/api/health`
+
+## 📁 Project Structure
 
 ```
-web/
-├── index.html          # Main HTML file
-├── styles.css          # CSS styles and responsive design
-├── script.js           # JavaScript functionality
-└── README.md           # This file
+personal-profile/
+├── frontend/                 # Frontend files
+│   ├── index.html           # Main HTML file
+│   ├── styles.css           # CSS styles
+│   └── script.js            # Frontend JavaScript
+├── backend/                  # Backend API
+│   ├── config/              # Configuration files
+│   │   └── database.js      # MongoDB connection
+│   ├── middleware/          # Custom middleware
+│   │   └── auth.js          # Authentication middleware
+│   ├── models/              # Database models
+│   │   ├── Contact.js       # Contact form model
+│   │   ├── Project.js       # Project model
+│   │   ├── Skill.js         # Skill model
+│   │   └── User.js          # User model
+│   ├── routes/              # API routes
+│   │   ├── auth.js          # Authentication routes
+│   │   ├── contact.js       # Contact form routes
+│   │   ├── projects.js      # Project management routes
+│   │   ├── skills.js        # Skill management routes
+│   │   └── upload.js        # File upload routes
+│   ├── utils/               # Utility functions
+│   │   └── email.js         # Email service
+│   ├── uploads/             # File uploads directory
+│   ├── server.js            # Main server file
+│   └── package.json         # Backend dependencies
+├── env.example              # Environment variables template
+└── README.md                # This file
 ```
 
-## 🛠️ Setup Instructions
+## 🔌 API Endpoints
 
-1. **Clone or Download**: Get the project files to your local machine
-2. **Open in Browser**: Simply open `index.html` in your web browser
-3. **Local Development**: Use a local server for development (recommended)
+### Authentication
+- `POST /api/auth/register` - User registration
+- `POST /api/auth/login` - User login
+- `POST /api/auth/logout` - User logout
+- `GET /api/auth/me` - Get current user profile
+- `PATCH /api/auth/me` - Update user profile
+- `POST /api/auth/forgot-password` - Request password reset
+- `POST /api/auth/reset-password` - Reset password
 
-### Using Local Server (Recommended)
+### Contact Form
+- `POST /api/contact/submit` - Submit contact form (public)
+- `GET /api/contact` - Get all contacts (admin)
+- `GET /api/contact/stats` - Get contact statistics (admin)
+- `GET /api/contact/:id` - Get single contact (admin)
+- `PATCH /api/contact/:id/status` - Update contact status (admin)
 
-```bash
-# Using Python 3
-python -m http.server 8000
+### Projects
+- `GET /api/projects` - Get all public projects
+- `GET /api/projects/featured` - Get featured projects
+- `GET /api/projects/category/:category` - Get projects by category
+- `GET /api/projects/search` - Search projects
+- `GET /api/projects/:id` - Get single project
+- `POST /api/projects` - Create new project (admin)
+- `PUT /api/projects/:id` - Update project (admin)
+- `DELETE /api/projects/:id` - Delete project (admin)
 
-# Using Node.js (if you have http-server installed)
-npx http-server
+### Skills
+- `GET /api/skills` - Get all active skills
+- `GET /api/skills/featured` - Get featured skills
+- `GET /api/skills/top` - Get top skills
+- `GET /api/skills/search` - Search skills
+- `GET /api/skills/:id` - Get single skill
+- `POST /api/skills` - Create new skill (admin)
+- `PUT /api/skills/:id` - Update skill (admin)
+- `DELETE /api/skills/:id` - Delete skill (admin)
 
-# Using PHP
-php -S localhost:8000
-```
+### File Uploads
+- `POST /api/upload/single` - Upload single file
+- `POST /api/upload/multiple` - Upload multiple files
+- `POST /api/upload/project` - Upload project images
+- `POST /api/upload/profile` - Upload profile image
+- `DELETE /api/upload/:filename` - Delete uploaded file
+- `GET /api/upload/list` - List uploaded files
 
-Then open `http://localhost:8000` in your browser.
+## 🗄️ Database Models
 
-## 🎨 Customization Guide
+### Contact
+- Name, email, subject, message
+- Status tracking (new, read, replied, archived)
+- Spam detection
+- IP address and user agent logging
+- Admin notes and timestamps
 
-### Personal Information
+### Project
+- Title, description, technologies
+- Category, difficulty, status
+- Images with main image designation
+- Links (GitHub, live, demo)
+- Features, challenges, solutions
+- View count and likes
+- Tags and metadata
 
-1. **Update Personal Details** in `index.html`:
-   - Replace "Your Name" with your actual name
-   - Update email, phone, and location in the contact section
-   - Modify the hero section description
-   - Update about me content
+### Skill
+- Name, category, proficiency level
+- Years of experience
+- Certifications and learning resources
+- Related skills and projects
+- Featured status and ordering
+- Color coding and icons
 
-2. **Profile Images**:
-   - Replace the placeholder icons with your actual images
-   - Update the `src` attributes in the HTML
-   - Recommended image sizes:
-     - Profile: 300x300px (circular)
-     - About: 250x250px
-     - Projects: 350x200px
+### User
+- Username, email, password
+- Role-based access control
+- Profile information and preferences
+- Login attempt tracking
+- Account locking for security
 
-### Content Customization
+## 🔐 Security Features
 
-#### Hero Section
-```html
-<h1 class="hero-title">Hi, I'm <span class="highlight">Your Name</span></h1>
-<p class="hero-subtitle">Your Professional Title</p>
-<p class="hero-description">Your personal description</p>
-```
+- **JWT Authentication**: Secure token-based authentication
+- **Password Hashing**: bcrypt with configurable rounds
+- **Rate Limiting**: Protection against brute force attacks
+- **Input Validation**: Comprehensive data sanitization
+- **CORS Protection**: Configurable cross-origin resource sharing
+- **Helmet Security**: HTTP security headers
+- **Account Locking**: Temporary account suspension after failed attempts
 
-#### About Section
-- Update the description paragraphs
-- Modify the statistics (years of experience, projects completed, etc.)
-- Change the about image
+## 📧 Email System
 
-#### Skills Section
-- Add/remove skill categories
-- Update skill names and icons
-- Modify the grid layout if needed
-
-#### Projects Section
-- Replace project descriptions
-- Update project technologies
-- Add your actual project links
-- Modify project images
-
-#### Contact Section
-- Update contact information
-- Modify social media links
-- Customize the contact form fields
-
-### Styling Customization
-
-#### Colors
-The main color scheme is defined in `styles.css`:
-```css
-:root {
-    --primary-color: #2563eb;
-    --secondary-color: #fbbf24;
-    --text-color: #1f2937;
-    --background-color: #f8fafc;
-}
-```
-
-#### Typography
-- Font family: Inter (Google Fonts)
-- Font weights: 300, 400, 500, 600, 700
-- Update in the CSS `@import` section
-
-#### Layout
-- Container max-width: 1200px
-- Section padding: 80px
-- Responsive breakpoints: 768px, 480px
-
-## 📱 Responsive Breakpoints
-
-- **Desktop**: 1200px and above
-- **Tablet**: 768px - 1199px
-- **Mobile**: Below 768px
-- **Small Mobile**: Below 480px
-
-## 🌟 Advanced Customization
-
-### Adding New Sections
-
-1. Create a new section in `index.html`:
-```html
-<section id="new-section" class="new-section">
-    <div class="container">
-        <h2 class="section-title">New Section</h2>
-        <!-- Your content here -->
-    </div>
-</section>
-```
-
-2. Add corresponding styles in `styles.css`
-3. Add navigation link in the navbar
-
-### Custom Animations
-
-The website uses CSS animations and JavaScript for interactivity:
-- Fade-in animations on scroll
-- Hover effects on cards and buttons
-- Smooth transitions throughout
-
-### Form Handling
-
-The contact form currently shows a success message. To make it functional:
-1. Add a backend service (Node.js, PHP, etc.)
-2. Update the form submission handler in `script.js`
-3. Add proper error handling and validation
-
-## 🔧 Browser Support
-
-- Chrome 60+
-- Firefox 55+
-- Safari 12+
-- Edge 79+
-
-## 📈 Performance Optimization
-
-- Optimize images (WebP format recommended)
-- Minify CSS and JavaScript for production
-- Use a CDN for external resources
-- Enable gzip compression on your server
+- **Contact Notifications**: Admin alerts for new submissions
+- **User Confirmations**: Automated responses to contact form submissions
+- **Password Reset**: Secure password recovery emails
+- **Welcome Emails**: New user onboarding
+- **Template System**: Professional HTML email templates
+- **SMTP Support**: Gmail, Outlook, and other providers
 
 ## 🚀 Deployment
 
-### GitHub Pages
-1. Push your code to a GitHub repository
-2. Enable GitHub Pages in repository settings
-3. Your site will be available at `https://username.github.io/repository-name`
+### Environment Variables
+```env
+NODE_ENV=production
+PORT=5000
+FRONTEND_URL=https://yourdomain.com
+MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/database
+JWT_SECRET=your-production-jwt-secret
+EMAIL_HOST=smtp.gmail.com
+EMAIL_USER=your-email@gmail.com
+EMAIL_PASS=your-app-password
+```
 
-### Netlify
-1. Drag and drop your project folder to Netlify
-2. Your site will be deployed automatically
-3. Custom domain can be added in settings
+### Production Commands
+```bash
+# Install production dependencies
+npm install --production
 
-### Vercel
-1. Connect your GitHub repository to Vercel
-2. Automatic deployments on every push
-3. Custom domain support included
+# Start production server
+npm start
 
-## 📝 License
+# Or use PM2 for process management
+pm2 start server.js --name "personal-profile"
+```
 
-This project is open source and available under the [MIT License](LICENSE).
+## 🛠️ Development
+
+### Scripts
+```bash
+npm run dev          # Start development server with nodemon
+npm start            # Start production server
+npm test             # Run tests (when implemented)
+```
+
+### Code Quality
+- ESLint configuration for code standards
+- Prettier for code formatting
+- Consistent error handling patterns
+- Comprehensive logging and monitoring
+
+## 📱 Frontend Integration
+
+Update your frontend JavaScript to use the new API endpoints:
+
+```javascript
+// Example: Submit contact form
+async function submitContactForm(formData) {
+  try {
+    const response = await fetch('/api/contact/submit', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData)
+    });
+    
+    const result = await response.json();
+    
+    if (result.success) {
+      showNotification(result.message, 'success');
+    } else {
+      showNotification(result.message, 'error');
+    }
+  } catch (error) {
+    showNotification('Failed to submit form. Please try again.', 'error');
+  }
+}
+```
 
 ## 🤝 Contributing
 
-Feel free to submit issues and enhancement requests!
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-## 📞 Support
+## 📄 License
 
-If you need help customizing your website:
-1. Check the customization guide above
-2. Review the code comments
-3. Open an issue in the repository
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🆘 Support
+
+For support and questions:
+- Create an issue in the repository
+- Contact: your.email@example.com
+- Documentation: Check the API endpoints above
+
+## 🔮 Future Enhancements
+
+- [ ] Blog system
+- [ ] Analytics dashboard
+- [ ] Multi-language support
+- [ ] Dark/light theme toggle
+- [ ] Advanced search and filtering
+- [ ] Social media integration
+- [ ] Newsletter subscription
+- [ ] Portfolio analytics
+- [ ] Client testimonials
+- [ ] Project collaboration features
 
 ---
 
-**Happy coding! 🎉** 
+**Built with ❤️ by Saad Raza** 
