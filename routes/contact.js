@@ -2,7 +2,7 @@ const express = require('express');
 const { body, validationResult } = require('express-validator');
 const Contact = require('../models/Contact');
 const sendEmail = require('../utils/email');
-const auth = require('../middleware/auth');
+const { auth } = require('../middleware/auth');
 const rateLimit = require('express-rate-limit');
 
 const router = express.Router();

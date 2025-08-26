@@ -2,10 +2,14 @@ const mongoose = require('mongoose');
 
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/personal-profile', {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    // Only try to connect if MONGODB_URI is provided
+    if (!process.env.MONGODB_URI) {
+      console.log('⚠️ No MONGODB_URI provided, skipping database connection');
+      console.log('📝 Set MONGODB_URI in your .env file to enable database features');
+      return;
+    }
+
+    const conn = await mongoose.connect(process.env.MONGODB_URI);
 
     console.log(`✅ MongoDB Connected: ${conn.connection.host}`);
     
@@ -27,7 +31,7 @@ const connectDB = async () => {
 
   } catch (error) {
     console.error('❌ Error connecting to MongoDB:', error.message);
-    process.exit(1);
+    console.log('⚠️ Server will continue without database connection');
   }
 };
 
