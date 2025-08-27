@@ -53,12 +53,19 @@ UserSchema.pre('save', async function hashPasswordIfModified(next) {
     return next();
   }
   const rounds = parseInt(process.env.BCRYPT_ROUNDS || '12', 10);
-  this.password = await bcrypt.hash(this.password, rounds);
+  const salt = await bcrypt.genSalt(rounds);
+  this.password = await bcrypt.hash(this.password, salt);
   next();
 });
 
 UserSchema.methods.comparePassword = function comparePassword(candidatePassword) {
   return bcrypt.compare(candidatePassword, this.password);
+};
+
+UserSchema.methods.setPassword = async function setPassword(newPlainPassword) {
+  const rounds = parseInt(process.env.BCRYPT_ROUNDS || '12', 10);
+  const salt = await bcrypt.genSalt(rounds);
+  this.password = await bcrypt.hash(newPlainPassword, salt);
 };
 
 UserSchema.methods.generateAuthToken = function generateAuthToken() {
