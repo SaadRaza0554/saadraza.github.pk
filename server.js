@@ -4,6 +4,7 @@ const helmet = require('helmet');
 const compression = require('compression');
 const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
+const path = require('path');
 require('dotenv').config();
 
 const connectDB = require('./config/database');
@@ -53,6 +54,7 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // Static files
 app.use('/uploads', express.static('uploads'));
+app.use(express.static(__dirname)); // Serve frontend files from root directory
 
 // Routes
 app.use('/api/contact', contactRoutes);
@@ -71,7 +73,12 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// 404 handler
+// Serve frontend for non-API routes
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+// 404 handler (this won't be reached due to the catch-all route above)
 app.use('*', (req, res) => {
   res.status(404).json({ message: 'Route not found' });
 });
